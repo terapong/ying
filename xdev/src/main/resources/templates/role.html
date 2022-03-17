@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<meta charset="utf-8">
+<title>Xdev</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<!-- Header potisuwan -->
+<div th:replace="~{fragments/header :: header}"> </div>
+
+<!-- Header potisuwan -->
+
+<!-- Body potisuwan -->
+<h1>ds</h1>
+<div th:if=${session.msg}>
+<div class="alert alert-success" role="alert" th:text="${session.msg}">
+</div>
+<th:block th:text="${#session.removeAttribute('msg')}"></th:block>
+</div>
+
+<div class="container p-5">
+	<table class="table table-striped">
+		<tr>
+			<td>
+		        <a class="btn btn-primary" data-bs-target="#role_add" data-bs-toggle="modal">Add</a>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<table class="table table-striped">
+					<thead class="bg-primary text-white">
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Role name</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="e: ${emp}">
+							<th th:text="${e.id}"></th>
+							<td th:text="${e.role}"></td>
+							<td>
+								<a class="btn btn-sm btn-primary" th:href="@{/role_edit/{id}(id=${e.id})}">Edit</a>
+								<a class="btn btn-sm btn-danger" th:href="@{/role_delete/{id}(id=${e.id})}">Delete</a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</table>
+</div>
+
+<div class="modal fade" id="role_add">
+	<div class="modal-dialog">
+		
+		    <div class="modal-content">
+		        <div class="modal-header">
+		            <h5 class="modal-title">Add role</h5>
+		            <button class="btn-close" data-bs-dismiss="modal"></button>
+		        </div>
+		        
+			    <div class="modal-body">
+			    	<form th:action="@{/role_add}" method="post" id="addrolesave">
+			            <div class="form-group">
+			                <label>Role</label>
+			                <input type="text" class="form-control" name="role">
+			            </div>
+		            </form>
+			    </div>
+			    
+			    <div class="modal-footer">
+				    <button class="btn btn-success btn-block" form="addrolesave">Save</button>
+				    <a class="btn btn-secondary" data-bs-dismiss="modal">Cancer</a>
+				</div>
+		    </div>
+	    
+	</div>
+</div>
+
+<!-- Body potisuwan -->
+
+<!-- Footer potisuwan -->
+
+<div  th:replace="~{fragments/footer :: footer}"> </div>
+<!-- Footer potisuwan -->
+
+</body>
+</html>
